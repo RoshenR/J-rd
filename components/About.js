@@ -19,7 +19,7 @@ export default function About() {
   }, []);
 
   return (
-    <section className="section about">
+    <section id="sandra" className="section about">
       <div className="about-inner">
         <div className="reveal" ref={(el) => (refs.current[0] = el)}>
           <span className="section-tag">Qui suis-je</span>

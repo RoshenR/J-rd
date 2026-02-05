@@ -19,7 +19,7 @@ export default function Contact() {
   }, []);
 
   return (
-    <section className="section contact reveal" ref={ref}>
+    <section id="contact" className="section contact reveal" ref={ref}>
       <span className="section-tag">Contact</span>
       <h2 className="section-heading">Parlons de ton voyage</h2>
       <p className="contact-text">

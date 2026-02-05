@@ -15,7 +15,6 @@
    DESIGN TOKENS
    ====================================================== */
 :root {
-  /* warm deep palette */
   --bg: #0e1112;
   --bg-warm: #141210;
   --surface: rgba(239, 230, 211, 0.04);
@@ -23,22 +22,17 @@
   --border: rgba(239, 230, 211, 0.07);
   --border-hover: rgba(201, 169, 110, 0.22);
 
-  /* text */
   --cream: #f0e6d3;
   --cream-soft: rgba(240, 230, 211, 0.65);
   --cream-muted: rgba(240, 230, 211, 0.3);
 
-  /* accent */
   --gold: #c9a96e;
   --gold-soft: rgba(201, 169, 110, 0.1);
   --gold-glow: rgba(201, 169, 110, 0.3);
-  --terracotta: #b87a56;
 
-  /* fonts */
   --serif: 'Cormorant Garamond', 'Georgia', serif;
   --sans: 'Jost', -apple-system, sans-serif;
 
-  /* easing */
   --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -67,7 +61,63 @@ a {
 }
 
 /* ======================================================
-   GRAIN TEXTURE (global)
+   CUSTOM CURSOR
+   ====================================================== */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 10000;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  background: var(--gold);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1px solid var(--gold);
+  opacity: 0.35;
+  transition:
+    width 0.35s var(--ease),
+    height 0.35s var(--ease),
+    margin 0.35s var(--ease),
+    opacity 0.35s var(--ease),
+    border-color 0.35s var(--ease);
+}
+
+.cursor-ring--hover {
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  opacity: 0.18;
+  border-color: var(--cream);
+}
+
+@media (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* ======================================================
+   GRAIN TEXTURE
    ====================================================== */
 body::after {
   content: '';
@@ -78,6 +128,100 @@ body::after {
   opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px;
+}
+
+/* ======================================================
+   NAVBAR
+   ====================================================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2.5rem;
+  transition: background 0.5s var(--ease), padding 0.4s var(--ease);
+  animation: fadeDown 0.8s var(--ease-out) 0.5s both;
+}
+
+.navbar--solid {
+  background: rgba(20, 18, 16, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.8rem 2.5rem;
+}
+
+.navbar-brand {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+}
+
+.navbar-links a {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream-soft);
+  transition: color 0.3s var(--ease);
+  position: relative;
+}
+
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.4s var(--ease);
+}
+
+.navbar-links a:hover {
+  color: var(--cream);
+}
+
+.navbar-links a:hover::after {
+  width: 100%;
+}
+
+.navbar-burger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.navbar-burger span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--cream);
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+
+.navbar-burger--open span:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+
+.navbar-burger--open span:last-child {
+  transform: translateY(-3.5px) rotate(-45deg);
 }
 
 /* ======================================================
@@ -119,7 +263,9 @@ body::after {
 .offers,
 .about,
 .testimonials,
-.contact {
+.contact,
+.process,
+.destinations {
   position: relative;
   z-index: 1;
   background: var(--bg-warm);
@@ -139,13 +285,6 @@ body::after {
 
 .section {
   padding: 8rem calc(50% - 530px);
-}
-
-@media (max-width: 1100px) {
-  .section {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-  }
 }
 
 .section-tag {
@@ -186,7 +325,6 @@ body::after {
   overflow: hidden;
 }
 
-/* ---- fullscreen photo (fixed — follows viewport) ---- */
 .hero-photo {
   position: fixed;
   inset: 0;
@@ -202,18 +340,16 @@ body::after {
   animation: kenBurns 25s ease-in-out infinite alternate;
 }
 
-/* ---- dark gradient over photo (also fixed) ---- */
 .hero-overlay {
   position: fixed;
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse at 50% 40%, rgba(14, 17, 18, 0.3) 0%, rgba(14, 17, 18, 0.7) 60%),
-    linear-gradient(to top, rgba(14, 17, 18, 0.92) 0%, transparent 45%);
+    radial-gradient(ellipse at 50% 40%, rgba(14,17,18,0.3) 0%, rgba(14,17,18,0.7) 60%),
+    linear-gradient(to top, rgba(14,17,18,0.92) 0%, transparent 45%);
   pointer-events: none;
 }
 
-/* ---- grain over hero (also fixed) ---- */
 .hero-grain {
   position: fixed;
   inset: 0;
@@ -224,7 +360,6 @@ body::after {
   background-size: 180px;
 }
 
-/* ---- content ---- */
 .hero-content {
   position: relative;
   z-index: 2;
@@ -258,7 +393,6 @@ body::after {
   font-weight: 300;
   line-height: 1;
   letter-spacing: 0.02em;
-  margin-bottom: 0;
 }
 
 .hero-title-sep {
@@ -402,7 +536,6 @@ body::after {
    ====================================================== */
 .offers {
   text-align: center;
-  position: relative;
 }
 
 .offers-grid {
@@ -472,7 +605,180 @@ body::after {
 }
 
 /* ======================================================
-   ABOUT (Sandra)
+   SECTION DIVIDER
+   ====================================================== */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  position: relative;
+  z-index: 1;
+  background: var(--bg-warm);
+}
+
+.section-divider-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.5;
+}
+
+.section-divider-line {
+  width: 50px;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ======================================================
+   PROCESS
+   ====================================================== */
+.process {
+  text-align: center;
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.process-line {
+  position: absolute;
+  top: 24px;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: var(--border);
+}
+
+.process-step {
+  position: relative;
+}
+
+.process-dot {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.8rem;
+  background: var(--bg-warm);
+  position: relative;
+  z-index: 1;
+  transition: background 0.4s var(--ease);
+}
+
+.process-step:hover .process-dot {
+  background: var(--gold-soft);
+}
+
+.process-dot span {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+.process-title {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+}
+
+.process-text {
+  font-family: var(--serif);
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--cream-soft);
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* ======================================================
+   DESTINATIONS
+   ====================================================== */
+.destinations {
+  text-align: center;
+}
+
+.dest-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+.dest-card {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  aspect-ratio: 3 / 4;
+}
+
+.dest-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s var(--ease);
+}
+
+.dest-card:hover .dest-img {
+  transform: scale(1.08);
+}
+
+.dest-caption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(14,17,18,0.8) 0%, transparent 50%);
+  transition: background 0.5s var(--ease);
+}
+
+.dest-card:hover .dest-caption {
+  background: linear-gradient(to top, rgba(14,17,18,0.9) 0%, rgba(14,17,18,0.2) 60%);
+}
+
+.dest-name {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.3rem;
+}
+
+.dest-mood {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+
+.dest-card:hover .dest-mood {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ======================================================
+   ABOUT
    ====================================================== */
 .about {
   position: relative;
@@ -563,7 +869,6 @@ body::after {
   padding: 2.2rem 1.8rem;
   border: 1px solid var(--border);
   background: var(--surface);
-  position: relative;
   transition:
     transform 0.6s var(--ease),
     border-color 0.5s var(--ease);
@@ -725,6 +1030,11 @@ body::after {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes lineGrow {
   from { opacity: 0; transform: scaleX(0); }
   to   { opacity: 1; transform: scaleX(1); }
@@ -743,6 +1053,13 @@ body::after {
 /* ======================================================
    RESPONSIVE
    ====================================================== */
+@media (max-width: 1100px) {
+  .section {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
 @media (max-width: 900px) {
   .offers-grid,
   .testimonials-grid {
@@ -751,11 +1068,67 @@ body::after {
     margin: 0 auto;
     gap: 1.5rem;
   }
+
+  .process-steps {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin: 0 auto;
+    gap: 3rem;
+  }
+
+  .process-line {
+    display: none;
+  }
+
+  .dest-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 5rem 1.5rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .navbar {
+    padding: 1rem 1.5rem;
+  }
+
+  .navbar--solid {
+    padding: 0.7rem 1.5rem;
+  }
+
+  .navbar-links {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 18, 16, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s var(--ease);
+  }
+
+  .navbar-links--open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .navbar-links--open a {
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+  }
+
+  .navbar-burger {
+    display: flex;
+    z-index: 901;
   }
 
   .hero-buttons {
@@ -790,9 +1163,18 @@ body::after {
   }
 }
 
+@media (max-width: 580px) {
+  .dest-grid {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 480px) {
   .section {
-    padding: 4rem 1.2rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
   }
 
   .card {
