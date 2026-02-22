@@ -15,11 +15,11 @@
    DESIGN TOKENS
    ====================================================== */
 :root {
-  --bg: #0e1112;
-  --bg-warm: #141210;
-  --surface: rgba(239, 230, 211, 0.04);
-  --surface-hover: rgba(239, 230, 211, 0.08);
-  --border: rgba(239, 230, 211, 0.07);
+  --bg: #080f19;
+  --bg-warm: #0f1b2b;
+  --surface: rgba(180, 210, 255, 0.05);
+  --surface-hover: rgba(180, 210, 255, 0.09);
+  --border: rgba(180, 210, 255, 0.1);
   --border-hover: rgba(201, 169, 110, 0.22);
 
   --cream: #f0e6d3;
@@ -148,7 +148,7 @@ body::after {
 }
 
 .navbar--solid {
-  background: rgba(20, 18, 16, 0.85);
+  background: rgba(15, 27, 43, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
@@ -265,7 +265,9 @@ body::after {
 .testimonials,
 .contact,
 .process,
-.destinations {
+.destinations,
+.pricing,
+.faq {
   position: relative;
   z-index: 1;
   background: var(--bg-warm);
@@ -345,8 +347,8 @@ body::after {
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse at 50% 40%, rgba(14,17,18,0.3) 0%, rgba(14,17,18,0.7) 60%),
-    linear-gradient(to top, rgba(14,17,18,0.92) 0%, transparent 45%);
+    radial-gradient(ellipse at 50% 40%, rgba(15,27,43,0.3) 0%, rgba(15,27,43,0.7) 60%),
+    linear-gradient(to top, rgba(15,27,43,0.92) 0%, transparent 45%);
   pointer-events: none;
 }
 
@@ -744,12 +746,12 @@ body::after {
   align-items: center;
   justify-content: flex-end;
   padding: 1.5rem;
-  background: linear-gradient(to top, rgba(14,17,18,0.8) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(15,27,43,0.85) 0%, transparent 50%);
   transition: background 0.5s var(--ease);
 }
 
 .dest-card:hover .dest-caption {
-  background: linear-gradient(to top, rgba(14,17,18,0.9) 0%, rgba(14,17,18,0.2) 60%);
+  background: linear-gradient(to top, rgba(15,27,43,0.92) 0%, rgba(15,27,43,0.25) 60%);
 }
 
 .dest-name {
@@ -775,6 +777,261 @@ body::after {
 .dest-card:hover .dest-mood {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ======================================================
+   PRICING
+   ====================================================== */
+.pricing {
+  text-align: center;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.pricing-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2.2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition:
+    transform 0.6s var(--ease),
+    box-shadow 0.6s var(--ease),
+    border-color 0.5s var(--ease);
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.pricing-card--highlight {
+  border-color: rgba(201, 169, 110, 0.3);
+  background: rgba(201, 169, 110, 0.04);
+}
+
+.pricing-card--highlight:hover {
+  border-color: rgba(201, 169, 110, 0.5);
+  box-shadow: 0 20px 50px rgba(201, 169, 110, 0.08);
+}
+
+.pricing-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pricing-name {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.pricing-price {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.pricing-tag {
+  font-family: var(--sans);
+  font-size: 0.63rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+}
+
+.pricing-desc {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--cream-soft);
+}
+
+.pricing-services {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-top: 0.2rem;
+}
+
+.pricing-services li {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--cream-soft);
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.pricing-services li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 0.65rem;
+}
+
+.pricing-note {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--cream-muted);
+  font-style: italic;
+  line-height: 1.6;
+  border-top: 1px solid var(--border);
+  padding-top: 0.8rem;
+  margin-top: auto;
+}
+
+.pricing-cta {
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: 0.7rem;
+  padding: 0.7rem 1.5rem;
+}
+
+/* ======================================================
+   FAQ
+   ====================================================== */
+.faq {
+  text-align: center;
+}
+
+.faq-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-tab {
+  background: none;
+  border: none;
+  padding: 0.9rem 1.6rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s var(--ease);
+}
+
+.faq-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.35s var(--ease);
+}
+
+.faq-tab:hover {
+  color: var(--cream-soft);
+}
+
+.faq-tab--active {
+  color: var(--cream);
+}
+
+.faq-tab--active::after {
+  transform: scaleX(1);
+}
+
+.faq-list {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-item:first-of-type {
+  border-top: 1px solid var(--border);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.4rem 0;
+  cursor: pointer;
+  gap: 1.5rem;
+  text-align: left;
+  color: var(--cream);
+  transition: color 0.3s var(--ease);
+}
+
+.faq-question:hover {
+  color: var(--cream-soft);
+}
+
+.faq-question span:first-child {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.faq-icon {
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease);
+}
+
+.faq-item--open .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s var(--ease);
+}
+
+.faq-item--open .faq-answer {
+  max-height: 200px;
+}
+
+.faq-answer p {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--cream-soft);
+  padding-bottom: 1.4rem;
 }
 
 /* ======================================================
@@ -1083,6 +1340,12 @@ body::after {
   .dest-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1104,7 +1367,7 @@ body::after {
   .navbar-links {
     position: fixed;
     inset: 0;
-    background: rgba(20, 18, 16, 0.97);
+    background: rgba(10, 18, 30, 0.97);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     flex-direction: column;
