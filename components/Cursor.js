@@ -7,7 +7,6 @@ export default function Cursor() {
   const ringRef = useRef(null);
 
   useEffect(() => {
-    /* skip on touch devices */
     if (window.matchMedia('(pointer: coarse)').matches) return;
 
     const dot = dotRef.current;
@@ -31,7 +30,6 @@ export default function Cursor() {
     }
 
     function animate() {
-      /* ring follows with easing */
       rx += (mx - rx) * 0.15;
       ry += (my - ry) * 0.15;
 
@@ -44,7 +42,6 @@ export default function Cursor() {
 
     window.addEventListener('mousemove', onMove);
 
-    /* grow ring on interactive elements */
     const interactives = document.querySelectorAll('a, button, .card, .dest-card, .testimonial');
     interactives.forEach((el) => {
       el.addEventListener('mouseenter', onEnterInteractive);
@@ -63,8 +60,8 @@ export default function Cursor() {
 
   return (
     <>
-      <div className="cursor-dot" ref={dotRef} />
-      <div className="cursor-ring" ref={ringRef} />
+      <div className="cursor-dot" ref={dotRef} aria-hidden="true" />
+      <div className="cursor-ring" ref={ringRef} aria-hidden="true" />
     </>
   );
 }

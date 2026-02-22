@@ -1,6 +1,4 @@
-'use client';
-
-import { useEffect, useRef } from 'react';
+import Reveal from './Reveal';
 
 const offers = [
   {
@@ -24,46 +22,25 @@ const offers = [
 ];
 
 export default function Offers() {
-  const refs = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
-    );
-
-    refs.current.forEach((el) => { if (el) observer.observe(el); });
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section id="approche" className="section offers">
-      <div className="reveal" ref={(el) => (refs.current[0] = el)}>
+      <Reveal>
         <span className="section-tag">L&apos;approche</span>
         <h2 className="section-heading">
           Trois fa&ccedil;ons de<br />voyager autrement
         </h2>
-      </div>
+      </Reveal>
 
       <div className="offers-grid">
         {offers.map((offer, i) => (
-          <article
-            key={i}
-            className="card reveal"
-            ref={(el) => (refs.current[i + 1] = el)}
-            style={{ transitionDelay: `${i * 0.15}s` }}
-          >
+          <Reveal key={i} tag="article" className="card" delay={i * 0.15}>
             <div className="card-head">
               <span className="card-num">{offer.number}</span>
-              <div className="card-rule" />
+              <div className="card-rule" aria-hidden="true" />
             </div>
             <h3 className="card-title">{offer.title}</h3>
             <p className="card-text">{offer.description}</p>
-          </article>
+          </Reveal>
         ))}
       </div>
     </section>

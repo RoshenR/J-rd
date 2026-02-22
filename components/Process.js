@@ -1,6 +1,4 @@
-'use client';
-
-import { useEffect, useRef } from 'react';
+import Reveal from './Reveal';
 
 const steps = [
   {
@@ -21,47 +19,26 @@ const steps = [
 ];
 
 export default function Process() {
-  const refs = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add('visible');
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-    refs.current.forEach((el) => { if (el) observer.observe(el); });
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section className="section process">
-      <div className="reveal" ref={(el) => (refs.current[0] = el)}>
+      <Reveal>
         <span className="section-tag">Comment &ccedil;a marche</span>
         <h2 className="section-heading">
           Trois &eacute;tapes vers<br />ton prochain voyage
         </h2>
-      </div>
+      </Reveal>
 
       <div className="process-steps">
-        {/* connecting line */}
-        <div className="process-line" />
+        <div className="process-line" aria-hidden="true" />
 
         {steps.map((s, i) => (
-          <div
-            key={i}
-            className="process-step reveal"
-            ref={(el) => (refs.current[i + 1] = el)}
-            style={{ transitionDelay: `${i * 0.18}s` }}
-          >
+          <Reveal key={i} className="process-step" delay={i * 0.18}>
             <div className="process-dot">
               <span>{s.num}</span>
             </div>
             <h3 className="process-title">{s.title}</h3>
             <p className="process-text">{s.text}</p>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

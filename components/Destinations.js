@@ -1,6 +1,5 @@
-'use client';
-
-import { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Reveal from './Reveal';
 
 const destinations = [
   {
@@ -21,47 +20,40 @@ const destinations = [
 ];
 
 export default function Destinations() {
-  const refs = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add('visible');
-        });
-      },
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-    );
-    refs.current.forEach((el) => { if (el) observer.observe(el); });
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section id="destinations" className="section destinations">
-      <div className="reveal" ref={(el) => (refs.current[0] = el)}>
+      <Reveal>
         <span className="section-tag">Inspirations</span>
         <h2 className="section-heading">
           Quelques terres<br />qui nous appellent
         </h2>
-      </div>
+      </Reveal>
 
       <div className="dest-grid">
         {destinations.map((d, i) => (
-          <figure
+          <Reveal
             key={i}
-            className="dest-card reveal"
-            ref={(el) => (refs.current[i + 1] = el)}
-            style={{ transitionDelay: `${i * 0.1}s` }}
+            tag="figure"
+            className="dest-card"
+            delay={i * 0.1}
+            threshold={0.08}
+            rootMargin="0px 0px -40px 0px"
           >
-            <div
-              className="dest-img"
-              style={{ backgroundImage: `url(${d.image})` }}
-            />
+            <div className="dest-img">
+              <Image
+                src={d.image}
+                alt={`${d.name} \u2014 ${d.mood}`}
+                fill
+                loading="lazy"
+                quality={80}
+                sizes="(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw"
+              />
+            </div>
             <figcaption className="dest-caption">
               <span className="dest-name">{d.name}</span>
               <span className="dest-mood">{d.mood}</span>
             </figcaption>
-          </figure>
+          </Reveal>
         ))}
       </div>
     </section>
