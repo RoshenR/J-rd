@@ -56,7 +56,6 @@ export default function About() {
           <div className="about-sig-line" />
           <span className="about-sig-name">Sandra</span>
           <span className="about-sig-role">
-            Fondatrice de J&ouml;r&eth;&nbsp;&mdash;&nbsp;by
           </span>
         </div>
       </div>
