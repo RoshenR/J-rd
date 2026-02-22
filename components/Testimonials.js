@@ -1,6 +1,4 @@
-'use client';
-
-import { useEffect, useRef } from 'react';
+import Reveal from './Reveal';
 
 const testimonials = [
   {
@@ -24,36 +22,16 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
-  const refs = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add('visible');
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-    refs.current.forEach((el) => { if (el) observer.observe(el); });
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section className="section testimonials">
-      <div className="reveal" ref={(el) => (refs.current[0] = el)}>
+      <Reveal>
         <span className="section-tag">T&eacute;moignages</span>
         <h2 className="section-heading">Ce qu&apos;ils en disent</h2>
-      </div>
+      </Reveal>
 
       <div className="testimonials-grid">
         {testimonials.map((t, i) => (
-          <figure
-            key={i}
-            className="testimonial reveal"
-            ref={(el) => (refs.current[i + 1] = el)}
-            style={{ transitionDelay: `${i * 0.15}s` }}
-          >
+          <Reveal key={i} tag="figure" className="testimonial" delay={i * 0.15}>
             <blockquote className="testimonial-quote">
               &laquo;&nbsp;{t.quote}&nbsp;&raquo;
             </blockquote>
@@ -61,7 +39,7 @@ export default function Testimonials() {
               <span className="testimonial-name">{t.name}</span>
               <span className="testimonial-dest">{t.destination}</span>
             </figcaption>
-          </figure>
+          </Reveal>
         ))}
       </div>
     </section>

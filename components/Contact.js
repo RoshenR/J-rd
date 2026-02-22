@@ -1,25 +1,8 @@
-'use client';
-
-import { useEffect, useRef } from 'react';
+import Reveal from './Reveal';
 
 export default function Contact() {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add('visible');
-        });
-      },
-      { threshold: 0.12 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="contact" className="section contact reveal" ref={ref}>
+    <Reveal tag="section" id="contact" className="section contact" threshold={0.12}>
       <span className="section-tag">Contact</span>
       <h2 className="section-heading">Parlons de ton voyage</h2>
       <p className="contact-text">
@@ -44,6 +27,6 @@ export default function Contact() {
           Suivre sur Instagram
         </a>
       </div>
-    </section>
+    </Reveal>
   );
 }

@@ -1,26 +1,24 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 
-export default function Hero({ visible }) {
+export default function Hero() {
   const photoRef = useRef(null);
   const overlayRef = useRef(null);
   const sectionRef = useRef(null);
 
+  /* Parallax scroll effect */
   useEffect(() => {
     function onScroll() {
       if (!photoRef.current || !sectionRef.current) return;
 
       const scrollY = window.scrollY;
       const h = sectionRef.current.offsetHeight;
-      /* progress: 0 at top, 1 when ~1.3x hero height scrolled */
       const progress = Math.min(scrollY / (h * 1.3), 1);
 
-      /* slow drift downward — image follows you gently */
       const translateY = scrollY * 0.15;
-      /* slight zoom-in as you scroll */
       const scale = 1.05 + progress * 0.1;
-      /* fade: starts at 40% scroll, gone at 100% */
       const opacity = 1 - Math.min(Math.max((progress - 0.4) / 0.6, 0), 1);
 
       photoRef.current.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
@@ -35,24 +33,50 @@ export default function Hero({ visible }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  /* Pause Ken Burns when hero is off-screen */
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const photo = photoRef.current;
+        if (!photo) return;
+        photo.style.animationPlayState = entry.isIntersecting
+          ? 'running'
+          : 'paused';
+      },
+      { threshold: 0 }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="hero" ref={sectionRef}>
-      {/* Fixed photo — follows viewport */}
-      <div
-        className={`hero-photo ${visible ? 'hero-photo--animate' : ''}`}
-        ref={photoRef}
-      />
-      <div className="hero-overlay" ref={overlayRef} />
-      <div className="hero-grain" />
+      <div className="hero-photo" ref={photoRef}>
+        <Image
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80"
+          alt="Paysage montagneux avec ciel lumineux"
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+        />
+      </div>
+      <div className="hero-overlay" ref={overlayRef} aria-hidden="true" />
+      <div className="hero-grain" aria-hidden="true" />
 
-      <div className={`hero-content ${visible ? 'hero-content--visible' : ''}`}>
+      <div className="hero-content">
         <span className="hero-kicker">Travel planner sensible</span>
         <h1 className="hero-title">
           J&ouml;r&eth;
-          <span className="hero-title-sep">&nbsp;&mdash;&nbsp;</span>
+          <span className="hero-title-sep" aria-hidden="true">
+            &nbsp;&mdash;&nbsp;
+          </span>
           <em className="hero-title-by">by</em>
         </h1>
-        <div className="hero-line" />
+        <div className="hero-line" aria-hidden="true" />
         <p className="hero-baseline">
           L&agrave; o&ugrave; la terre murmure,<br />
           le voyage commence.
@@ -70,7 +94,7 @@ export default function Hero({ visible }) {
         </div>
       </div>
 
-      <div className={`scroll-cue ${visible ? 'scroll-cue--visible' : ''}`}>
+      <div className="scroll-cue" aria-hidden="true">
         <span className="scroll-cue-text">d&eacute;filer</span>
         <div className="scroll-cue-line" />
       </div>

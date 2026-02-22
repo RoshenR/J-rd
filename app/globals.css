@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
-
 /* ======================================================
    RESET
    ====================================================== */
@@ -26,12 +24,12 @@
   --cream-soft: rgba(240, 230, 211, 0.65);
   --cream-muted: rgba(240, 230, 211, 0.3);
 
-  --gold: #c9a96e;
+  --gold: #d4b07a;
   --gold-soft: rgba(201, 169, 110, 0.1);
   --gold-glow: rgba(201, 169, 110, 0.3);
 
-  --serif: 'Cormorant Garamond', 'Georgia', serif;
-  --sans: 'Jost', -apple-system, sans-serif;
+  --serif: var(--font-cormorant), 'Georgia', serif;
+  --sans: var(--font-jost), -apple-system, sans-serif;
 
   --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -58,6 +56,58 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* ======================================================
+   SKIP NAVIGATION
+   ====================================================== */
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--gold);
+  color: var(--bg);
+  padding: 0.5rem 1rem;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  z-index: 99999;
+  transition: top 0.2s;
+}
+
+.skip-nav:focus {
+  top: 1rem;
+}
+
+/* ======================================================
+   FOCUS VISIBILITY (WCAG 2.4.7)
+   ====================================================== */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 4px var(--gold-glow);
+}
+
+.navbar-links a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  color: var(--cream);
+}
+
+.navbar-burger:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.dest-card:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }
 
 /* ======================================================
@@ -143,8 +193,18 @@ body::after {
   align-items: center;
   justify-content: space-between;
   padding: 1.2rem 2.5rem;
-  transition: background 0.5s var(--ease), padding 0.4s var(--ease);
-  animation: fadeDown 0.8s var(--ease-out) 0.5s both;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.8s var(--ease-out) 0.5s,
+    transform 0.8s var(--ease-out) 0.5s,
+    background 0.5s var(--ease),
+    padding 0.4s var(--ease);
+}
+
+html.intro-done .navbar {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .navbar--solid {
@@ -245,13 +305,13 @@ body::after {
 }
 
 /* ======================================================
-   MAIN CONTENT
+   MAIN CONTENT — gated by intro
    ====================================================== */
-.main--hidden {
+main {
   opacity: 0;
 }
 
-.main--visible {
+html.intro-done main {
   opacity: 1;
   transition: opacity 1s var(--ease) 0.1s;
 }
@@ -259,7 +319,6 @@ body::after {
 /* ======================================================
    LAYOUT
    ====================================================== */
-/* content sections sit above the fixed photo */
 .offers,
 .about,
 .testimonials,
@@ -271,7 +330,6 @@ body::after {
   background: var(--bg-warm);
 }
 
-/* smooth transition from hero photo to opaque content */
 .offers::before {
   content: '';
   position: absolute;
@@ -328,16 +386,19 @@ body::after {
 .hero-photo {
   position: fixed;
   inset: 0;
-  background:
-    url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80')
-    center / cover no-repeat;
   transform: scale(1.05);
   will-change: transform, opacity;
   z-index: 0;
+  overflow: hidden;
 }
 
-.hero-photo--animate {
+html.intro-done .hero-photo {
   animation: kenBurns 25s ease-in-out infinite alternate;
+}
+
+.hero-photo img {
+  object-fit: cover;
+  object-position: center;
 }
 
 .hero-overlay {
@@ -367,7 +428,7 @@ body::after {
   transform: translateY(35px);
 }
 
-.hero-content--visible {
+html.intro-done .hero-content {
   animation: heroIn 1.6s var(--ease-out) forwards;
 }
 
@@ -383,7 +444,7 @@ body::after {
   opacity: 0;
 }
 
-.hero-content--visible .hero-kicker {
+html.intro-done .hero-kicker {
   animation: fadeUp 0.9s var(--ease-out) 0.3s forwards;
 }
 
@@ -415,7 +476,7 @@ body::after {
   transform: scaleX(0);
 }
 
-.hero-content--visible .hero-line {
+html.intro-done .hero-line {
   animation: lineGrow 0.9s var(--ease-out) 0.7s forwards;
 }
 
@@ -431,7 +492,7 @@ body::after {
   opacity: 0;
 }
 
-.hero-content--visible .hero-baseline {
+html.intro-done .hero-baseline {
   animation: fadeUp 0.9s var(--ease-out) 0.9s forwards;
 }
 
@@ -443,7 +504,7 @@ body::after {
   opacity: 0;
 }
 
-.hero-content--visible .hero-buttons {
+html.intro-done .hero-buttons {
   animation: fadeUp 0.9s var(--ease-out) 1.1s forwards;
 }
 
@@ -464,7 +525,7 @@ body::after {
   transition: opacity 1.2s var(--ease) 2.2s;
 }
 
-.scroll-cue--visible {
+html.intro-done .scroll-cue {
   opacity: 1;
 }
 
@@ -727,12 +788,16 @@ body::after {
 .dest-img {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
+}
+
+.dest-img img {
+  object-fit: cover;
+  object-position: center;
   transition: transform 0.8s var(--ease);
 }
 
-.dest-card:hover .dest-img {
+.dest-card:hover .dest-img img {
   transform: scale(1.08);
 }
 
@@ -746,6 +811,7 @@ body::after {
   padding: 1.5rem;
   background: linear-gradient(to top, rgba(14,17,18,0.8) 0%, transparent 50%);
   transition: background 0.5s var(--ease);
+  z-index: 1;
 }
 
 .dest-card:hover .dest-caption {
@@ -847,7 +913,7 @@ body::after {
   font-size: 0.68rem;
   font-weight: 300;
   letter-spacing: 0.1em;
-  color: var(--cream-muted);
+  color: rgba(240, 230, 211, 0.55);
 }
 
 /* ======================================================
@@ -987,7 +1053,7 @@ body::after {
   font-weight: 300;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--cream-muted);
+  color: rgba(240, 230, 211, 0.55);
   transition: color 0.3s var(--ease);
 }
 
@@ -999,7 +1065,7 @@ body::after {
   font-family: var(--sans);
   font-size: 0.68rem;
   font-weight: 300;
-  color: var(--cream-muted);
+  color: rgba(240, 230, 211, 0.55);
   letter-spacing: 0.08em;
 }
 
@@ -1048,6 +1114,57 @@ body::after {
 @keyframes scrollPulse {
   0%, 100% { opacity: 0.3; transform: scaleY(1); }
   50%      { opacity: 0.8; transform: scaleY(1.2) translateY(3px); }
+}
+
+/* ======================================================
+   REDUCED MOTION
+   ====================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-photo {
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .hero-content,
+  .hero-kicker,
+  .hero-line,
+  .hero-baseline,
+  .hero-buttons {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .scroll-cue {
+    opacity: 1 !important;
+  }
+
+  .scroll-cue-line {
+    animation: none !important;
+  }
+
+  .navbar {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  main {
+    opacity: 1 !important;
+  }
 }
 
 /* ======================================================
