@@ -1,8 +1,4 @@
-'use client';
-
-import { useState, useCallback } from 'react';
-import IntroWave from '../components/IntroWave';
-import Cursor from '../components/Cursor';
+import IntroShell from '../components/IntroShell';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Offers from '../components/Offers';
@@ -17,19 +13,12 @@ import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 
 export default function Home() {
-  const [introComplete, setIntroComplete] = useState(false);
-
-  const handleIntroComplete = useCallback(() => {
-    setIntroComplete(true);
-  }, []);
-
   return (
     <>
-      <IntroWave onComplete={handleIntroComplete} />
-      <Cursor />
-      <Navbar visible={introComplete} />
-      <main className={introComplete ? 'main--visible' : 'main--hidden'}>
-        <Hero visible={introComplete} />
+      <IntroShell />
+      <Navbar />
+      <main id="main-content">
+        <Hero />
         <Offers />
         <Divider />
         <Process />
