@@ -8,7 +8,7 @@ const formulas = [
     price: 'À partir de 35\u00a0€',
     tag: 'Regard & conseils',
     description:
-      'Tu as déjà ton itinéraire, mais tu veux partir l\u2019esprit léger. Sandra pose son regard sur ton plan, vérifie les détails et s\u2019assure que tu puisses vraiment profiter de chaque moment.',
+      'Tu as déjà ton itinéraire, mais tu veux partir l\u2019esprit léger. Je pose mon regard sur ton plan, vérifie les détails et m\u2019assure que tu puisses vraiment profiter de chaque moment.',
     services: [
       'Relecture de ton itinéraire existant',
       'Conseils et ajustements',
@@ -22,7 +22,7 @@ const formulas = [
     price: '50\u00a0€\u00a0/ jour',
     tag: 'Jusqu\u2019à 4\u00a0personnes · 9\u00a0jours · 2\u00a0étapes',
     description:
-      'Sandra compose ton voyage de A à Z — transports, hébergements, activités et bonnes adresses — et te remet un carnet de voyage digital soigné.',
+      'Je compose ton voyage de A à Z — transports, hébergements, activités et bonnes adresses — et te remets un carnet de voyage digital soigné.',
     services: [
       'Recherche des transports',
       '2–3 hébergements proposés',
@@ -31,7 +31,7 @@ const formulas = [
       'Carnet de voyage digital',
       'Joignable pendant le voyage',
     ],
-    note: 'Voyage de plus de 9\u00a0jours ou plus de 4\u00a0personnes\u00a0? Contacte Sandra pour un devis personnalisé.',
+    note: 'Voyage de plus de 9\u00a0jours ou plus de 4\u00a0personnes\u00a0? Contacte-moi pour un devis personnalisé.',
     highlight: false,
   },
   {
@@ -39,7 +39,7 @@ const formulas = [
     price: '65\u00a0€\u00a0/ jour',
     tag: 'Jusqu\u2019à 4\u00a0personnes · 15\u00a0jours · multi-étapes',
     description:
-      'Pour les voyages qui s\u2019étirent et se déploient en plusieurs chapitres. Sandra orchestre chaque étape avec soin, des premières pistes jusqu\u2019au carnet final.',
+      'Pour les voyages qui s\u2019étirent et se déploient en plusieurs chapitres. J\u2019orchestre chaque étape avec soin, des premières pistes jusqu\u2019au carnet final.',
     services: [
       'Recherche des transports',
       '2 hébergements proposés par étape',
@@ -48,7 +48,7 @@ const formulas = [
       'Carnet de voyage digital',
       'Joignable pendant le voyage',
     ],
-    note: 'Voyage de plus de 15\u00a0jours et/ou plus de 4\u00a0personnes\u00a0? Contacte Sandra pour un devis personnalisé.',
+    note: 'Voyage de plus de 15\u00a0jours et/ou plus de 4\u00a0personnes\u00a0? Contacte-moi pour un devis personnalisé.',
     highlight: false,
   },
   {
@@ -56,7 +56,7 @@ const formulas = [
     price: 'Sur devis',
     tag: 'Entièrement personnalisé',
     description:
-      'Pour les voyages qui n\u2019entrent dans aucune case. Sandra compose librement\u00a0— sans contrainte de durée, d\u2019étapes ou de nombre de voyageurs. Chaque détail est pensé depuis le premier échange, jusqu\u2019au retour. Tarif établi sur devis uniquement, dès qu\u2019on se parle.',
+      'Pour les voyages qui n\u2019entrent dans aucune case. Je compose librement\u00a0— sans contrainte de durée, d\u2019étapes ou de nombre de voyageurs. Chaque détail est pensé depuis le premier échange, jusqu\u2019au retour. Tarif établi sur devis uniquement, dès qu\u2019on se parle.',
     services: [],
     note: null,
     highlight: true,
@@ -114,7 +114,7 @@ export default function Pricing() {
               href="mailto:sandra@jord-by.com?subject=Demande%20de%20devis"
               className="btn btn-ghost pricing-cta"
             >
-              Demander un devis
+              Je t'écoute
             </a>
           </article>
         ))}

@@ -6,7 +6,6 @@ import Divider from '../components/Divider';
 import Process from '../components/Process';
 import Destinations from '../components/Destinations';
 import About from '../components/About';
-import Testimonials from '../components/Testimonials';
 import Pricing from '../components/Pricing';
 import FAQ from '../components/FAQ';
 import Contact from '../components/Contact';
@@ -28,8 +27,6 @@ export default function Home() {
         <Destinations />
         <Divider />
         <Pricing />
-        <Divider />
-        <Testimonials />
         <Divider />
         <FAQ />
         <Divider />
