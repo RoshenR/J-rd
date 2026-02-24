@@ -65,7 +65,7 @@ export default function Navbar() {
   }, [menuOpen]);
 
   return (
-    <nav className={`navbar ${scrolled ? 'navbar--solid' : ''}`}>
+    <nav className={`navbar${scrolled ? ' navbar--solid' : ''}${menuOpen ? ' navbar--menu-open' : ''}`}>
       <a href="#" className="navbar-brand">
         J&ouml;r&eth;&nbsp;&mdash;&nbsp;by
       </a>
@@ -77,6 +77,7 @@ export default function Navbar() {
         aria-expanded={menuOpen}
         aria-controls="navbar-menu"
       >
+        <span aria-hidden="true" />
         <span aria-hidden="true" />
         <span aria-hidden="true" />
       </button>
