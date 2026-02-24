@@ -27,6 +27,7 @@ export default function IntroWave({ onComplete }) {
 
       uniform float uTime;
       uniform vec2 uResolution;
+      uniform float uScale;
 
       /* ---- noise ---- */
       vec2 hash22(vec2 p) {
@@ -61,7 +62,7 @@ export default function IntroWave({ onComplete }) {
       void main() {
         vec2 uv = gl_FragCoord.xy / uResolution;
         float aspect = uResolution.x / uResolution.y;
-        vec2 p = (uv - 0.5) * vec2(aspect, 1.0);
+        vec2 p = (uv - 0.5) * vec2(aspect, 1.0) * uScale;
 
         float t = uTime * 1.6;
 
@@ -143,6 +144,7 @@ export default function IntroWave({ onComplete }) {
         uResolution: {
           value: new THREE.Vector2(window.innerWidth * dpr, window.innerHeight * dpr),
         },
+        uScale: { value: window.innerWidth < 768 ? 2.0 : 1.0 },
       },
     });
 
@@ -169,6 +171,7 @@ export default function IntroWave({ onComplete }) {
         window.innerWidth * newDpr,
         window.innerHeight * newDpr
       );
+      material.uniforms.uScale.value = window.innerWidth < 768 ? 2.0 : 1.0;
     }
     window.addEventListener('resize', onResize);
 
