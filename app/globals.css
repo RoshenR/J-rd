@@ -1498,6 +1498,7 @@ html.intro-done .scroll-cue {
   /* Navbar s'étend en plein écran quand le menu est ouvert */
   .navbar--menu-open {
     bottom: 0;
+    align-items: flex-start;
   }
 
   .navbar-brand {
@@ -1556,20 +1557,8 @@ html.intro-done .scroll-cue {
     transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), color 0.25s var(--ease);
   }
 
-  .navbar-links a::after {
-    content: '↗';
-    font-size: 0.85rem;
-    color: var(--gold);
-    opacity: 0;
-    transition: opacity 0.25s var(--ease);
-  }
-
   .navbar-links a:hover {
     color: var(--cream);
-  }
-
-  .navbar-links a:hover::after {
-    opacity: 1;
   }
 
   .navbar-links--open li:nth-child(1) a { opacity: 1; transform: translateX(0); transition-delay: 0.08s; }
