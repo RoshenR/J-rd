@@ -300,22 +300,6 @@ html.intro-done .navbar {
   transition: opacity 1.2s var(--ease);
 }
 
-@media (max-width: 768px) {
-  .intro-wave {
-    inset: auto;
-    width: min(280px, 78vw);
-    height: min(280px, 78vw);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    overflow: hidden;
-  }
-
-  .intro-wave--fading {
-    opacity: 0;
-  }
-}
 
 .intro-wave--fading {
   opacity: 0;

@@ -16,9 +16,7 @@ export default function IntroWave({ onComplete }) {
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     const dpr = Math.min(window.devicePixelRatio, 2);
-    const w = container.offsetWidth;
-    const h = container.offsetHeight;
-    renderer.setSize(w, h);
+    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(dpr);
     container.appendChild(renderer.domElement);
 
@@ -143,7 +141,7 @@ export default function IntroWave({ onComplete }) {
       uniforms: {
         uTime: { value: 0 },
         uResolution: {
-          value: new THREE.Vector2(w * dpr, h * dpr),
+          value: new THREE.Vector2(window.innerWidth * dpr, window.innerHeight * dpr),
         },
       },
     });
@@ -165,11 +163,12 @@ export default function IntroWave({ onComplete }) {
 
     function onResize() {
       const newDpr = Math.min(window.devicePixelRatio, 2);
-      const nw = container.offsetWidth;
-      const nh = container.offsetHeight;
-      renderer.setSize(nw, nh);
+      renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(newDpr);
-      material.uniforms.uResolution.value.set(nw * newDpr, nh * newDpr);
+      material.uniforms.uResolution.value.set(
+        window.innerWidth * newDpr,
+        window.innerHeight * newDpr
+      );
     }
     window.addEventListener('resize', onResize);
 
