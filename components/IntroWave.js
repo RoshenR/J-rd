@@ -147,7 +147,7 @@ export default function IntroWave({ onComplete }) {
         },
         uScale: { value: window.innerWidth < 768 ? 2.0 : 1.0 },
         uOffset: { value: window.innerWidth < 768
-          ? new THREE.Vector2(-0.3, -0.35)
+          ? new THREE.Vector2(-0.42, -0.68)
           : new THREE.Vector2(0.0, 0.0) },
       },
     });
@@ -178,8 +178,8 @@ export default function IntroWave({ onComplete }) {
       const isMobile = window.innerWidth < 768;
       material.uniforms.uScale.value = isMobile ? 2.0 : 1.0;
       material.uniforms.uOffset.value.set(
-        isMobile ? -0.3 : 0.0,
-        isMobile ? -0.35 : 0.0
+        isMobile ? -0.42 : 0.0,
+        isMobile ? -0.68 : 0.0
       );
     }
     window.addEventListener('resize', onResize);
